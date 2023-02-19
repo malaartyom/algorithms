@@ -9,14 +9,11 @@ def insertion_sort_k(arr, k):
             j -= k
 
 def shell_sort(nums):
-    arr_of_k = []
-    k = 1
-    while 2 ** k - 1 < len(nums):
-        arr_of_k.append(2 ** k - 1)
-        k += 1
+    arr_of_k = [1, 4, 10, 23, 57, 132, 301, 701]
     arr_of_k.reverse()
     for i in arr_of_k:
-        insertion_sort_k(nums, i)
+        if i < len(nums):
+            insertion_sort_k(nums, i)
 
 def counter(array, sign, elem):
     if sign == "<":
