@@ -32,9 +32,9 @@ def hIndex(citations) -> int:
     citations.reverse()
     a = []
     for i in range(len(citations)):
-        if counter(citations[:i + 1], ">", i + 1) and counter(citations[i + 1:], "<", i + 1):
+        if i + 1 <= citations[i]:
             a.append(i + 1)
-    return max(a) if len(a) != 0 else 0
-print(hIndex([1, 3, 1]))
+    return a[-1] if len(a) != 0 else 0
+print(hIndex([0]))
 
 # https://leetcode.com/problems/h-index/submissions/898618834/
