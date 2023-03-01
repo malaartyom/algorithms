@@ -1,64 +1,72 @@
-def merge_and_count_split(left, right, res):
-    count = 0
-    lsize, rsize = len(left), len(right)
-    n = len(res)
-    i, j, k = 0, 0, 0
-    while k < n and i < lsize and j < rsize:
-        if left[i] < right[j]:
-            res[k] = left[i]
-            k += 1
-            i += 1
+def merge(A, buffer, start, middle, end):
+    k = i = start
+    j = middle + 1
+    inversionCount = 0
+    while i <= middle and j <= end:
+        if A[i] <= A[j]:
+            buffer[k] = A[i]
+            i = i + 1
         else:
-            res[k] = right[j]
-            k += 1
-            j += 1
-            count += len(left) - i
-    while i < lsize:
-        res[k] = left[i]
-        i += 1
-        k += 1
-    while j < rsize:
-        res[k] = right[j]
-        j += 1
-        k += 1
-        count += 1
-    return count
+            buffer[k] = A[j]
+            j = j + 1
+            inversionCount += (middle - i + 1) 
+        k = k + 1
+    while i <= middle:
+        buffer[k] = A[i]
+        k = k + 1
+        i = i + 1
+    for i in range(start, end + 1):
+        A[i] = buffer[i]
+ 
+    return inversionCount
+ 
 
-
-
-
-def sort_and_count_inversions(array):
-    if len(array) == 1:
+def countGlobalInversions(A, buffer, start, end):
+    invs = 0
+    if end <= start:
         return 0
+    middle = start + ((end - start) // 2)
+    invs  += countGlobalInversions(A, buffer, start, middle)
+    invs += countGlobalInversions(A, buffer, middle + 1, end)
+    invs += merge(A, buffer, start, middle, end)
+ 
+    return invs
 
-    middle = int(len(array) / 2)
-    left = sort_and_count_inversions(array[:middle])
-    right = sort_and_count_inversions(array[middle:])
+def countLocalInversions(A):
+    InversionsCount = 0
+    if len(A) != 2:
+        for i in range(1, len(A)):
+            if A[i - 1] > A[i]: 
+                InversionsCount += 1
+    else:
+        if A[0] > A[1]:
+            InversionsCount += 1
+    return InversionsCount
 
-    buffer = [0 for i in range(len(array))]
-    split = merge_and_count_split(array[:middle], array[middle:], buffer)
-    for i in range(len(array)):
-        array[i] = buffer[i]
-    return left + right + split
+def CountInversions(A):
+    B = A.copy()
+    return countGlobalInversions(A, B, 0, len(A) - 1)
 
-def count_inv(array):
-    count = 0
-    for i in range(len(array)):
-        for j in range(len(array)):
-            if array[i] > array[j] and i < j:
-                count += 1
-    return count
-
-def count_local_inversions(array):
-    count = 0
-    for i in range(1, len(array)):
-        if array[i - 1] > array[i]:
-            count += 1
-
-    return count 
-
-a = [1, 2, 0]
-print(count_inv(a))
-print(count_local_inversions(a))
-print(sort_and_count_inversions(a))
-print(a)
+class Solution:
+    def isIdealPermutation(self, nums) -> bool:
+        # for i in range(len(nums)):
+        #     if abs(i - nums[i]) > 1:
+        #         return False
+        # return True
+        localinv = int(countLocalInversions(nums))
+        globalinv = int(CountInversions(nums))
+        if localinv == globalinv:
+            return True
+        else:
+            return False
+        
+# print(CountInversions([1, 0, 2]))
+# print(countLocalInversions([1, 0, 2]))
+a = [2, 0, 1]
+localinv = int(countLocalInversions(a))
+globalinv = int(CountInversions(a))
+print(globalinv, localinv)
+if localinv == globalinv:
+    print(True)
+else:
+    print(False)
