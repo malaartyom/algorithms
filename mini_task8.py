@@ -49,10 +49,6 @@ def CountInversions(A):
 
 class Solution:
     def isIdealPermutation(self, nums) -> bool:
-        # for i in range(len(nums)):
-        #     if abs(i - nums[i]) > 1:
-        #         return False
-        # return True
         localinv = int(countLocalInversions(nums))
         globalinv = int(CountInversions(nums))
         if localinv == globalinv:
@@ -60,13 +56,5 @@ class Solution:
         else:
             return False
         
-# print(CountInversions([1, 0, 2]))
-# print(countLocalInversions([1, 0, 2]))
-a = [2, 0, 1]
-localinv = int(countLocalInversions(a))
-globalinv = int(CountInversions(a))
-print(globalinv, localinv)
-if localinv == globalinv:
-    print(True)
-else:
-    print(False)
+#Not working code because of quantity of array: https://leetcode.com/problems/global-and-local-inversions/description/
+#Working code: https://leetcode.com/problems/global-and-local-inversions/submissions/907142086/
