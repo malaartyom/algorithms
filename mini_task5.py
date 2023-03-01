@@ -15,18 +15,6 @@ def shell_sort(nums):
         if i < len(nums):
             insertion_sort_k(nums, i)
 
-def counter(array, sign, elem):
-    if sign == "<":
-        for i in array:
-            if i > elem:
-                return False
-        return True
-    elif sign == ">":
-        for i in array:
-            if i < elem:
-                return False
-        return True
-    
 def hIndex(citations) -> int:
     shell_sort(citations)
     citations.reverse()
@@ -37,4 +25,4 @@ def hIndex(citations) -> int:
     return a[-1] if len(a) != 0 else 0
 print(hIndex([0]))
 
-# https://leetcode.com/problems/h-index/submissions/898618834/
+# https://leetcode.com/problems/h-index/submissions/902839567/

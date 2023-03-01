@@ -1,4 +1,3 @@
-import math
 import random
 def mul_by_ten(x, n):
     for i in range(n):
