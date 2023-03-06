@@ -1,5 +1,7 @@
 import math
 import time
+import random
+from datetime import datetime
 class Matrix:
     
     def __init__(self, num1, num2, *args):
@@ -73,7 +75,7 @@ def format_table(benchmarks, algos, result):
     help_bench.append('Benchmark')
     help = [str(i) for i in flatten(result)]
     help.extend(algos)
-    print(help)
+    #print(help)
     first = "| " + "Benchmark".ljust(len(max(help_bench, key=lambda x: len(x))) + 1," ")
     for i in algos:
         first += "| " + i.ljust(len(max(help, key=lambda x: len(x)))," ") + " "
@@ -105,11 +107,52 @@ def create_from_quaters(q1, q2, q3, q4):
                     return_matrix.value[i][j] = q1.value[i][j]
     return return_matrix
 
+def generate_matrix(size):
+    population = [i for i in range(2000)]
+    x = []
+    for i in range(size):
+        x.append(random.sample(population, size))
+    return_matrix = Matrix(size, size, x)
+    return return_matrix
+
+def test(algos, input_results):
+    return_results = []
+    benchmarks = []
+    i1 = 0
+    for i in input_results:
+        res = []
+        for j in algos:
+            summ = 0
+            mult = 1
+            results = []
+            for k in range(5):
+                start1 = time.time()
+                j(*i)
+                end1 = time.time()
+                summ += (end1 - start1)
+                mult *= (end1 - start1)
+                results.append(end1 - start1)
+            arithmetic = (summ / 5)
+            geometric = (summ * (1 / 5))
+            standard_deviation = 0
+            for k in range(5):
+                standard_deviation += (results[k] - arithmetic) ** 2
+            standard_deviation = math.sqrt(standard_deviation / 5)
+            string = f"a:{round(arithmetic, 3)} s, g:{round(geometric, 3)} s, d:{round(standard_deviation, 3)} s"
+            res.append(string)
+        return_results.append(res)
+        benchmarks.append(f"Case {i1}")
+        i1 += 1
+    return format_table(benchmarks, [i.__name__ for i in algos], return_results)
+
+                
+
+
 def first_mult(matrix1, matrix2):
         return_matrix = Matrix(matrix1.size1, matrix2.size2)
         for i in range(matrix1.size1):
             for j in range(matrix2.size2):
-                summ = int(0)
+                summ = 0
                 for k in range(matrix1.size2):
                     summ += matrix1.value[i][k] * matrix2.value[k][j]
                 return_matrix.value[i][j] = summ
@@ -157,4 +200,18 @@ def third_mult(matrix1: Matrix, matrix2: Matrix) -> Matrix:
     Q4 = P1 + P5 - P3 - P7
     ret = create_from_quaters(Q1, Q2, Q3, Q4)
     return ret
+
+def list_of_test(quantity_of_cases):
+    return_array = []
+    for i in range(quantity_of_cases):
+        return_array.append((generate_matrix(2 ** i), generate_matrix(2 ** i)))
+    return return_array
+    
+
+algos = [first_mult, second_mult, third_mult]
+a = list_of_test(10)
+print(datetime.now())
+test(algos, a)
+print(datetime.now())
+
 

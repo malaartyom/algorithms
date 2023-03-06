@@ -51,10 +51,7 @@ class Solution:
     def isIdealPermutation(self, nums) -> bool:
         localinv = int(countLocalInversions(nums))
         globalinv = int(CountInversions(nums))
-        if localinv == globalinv:
-            return True
-        else:
-            return False
+        return localinv == globalinv
         
 #Not working code because of quantity of array: https://leetcode.com/problems/global-and-local-inversions/description/
 #Working code: https://leetcode.com/problems/global-and-local-inversions/submissions/907142086/
