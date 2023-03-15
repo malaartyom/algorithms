@@ -1,7 +1,10 @@
 import math
 import time
 import random
+from tqdm import tqdm
 from datetime import datetime
+
+
 class Matrix:
     
     def __init__(self, num1, num2, *args):
@@ -58,7 +61,6 @@ class Matrix:
         return return_matrix
 
 
-
 def flatten(a):
     ret_a = []
     for i in a:
@@ -108,7 +110,7 @@ def create_from_quaters(q1, q2, q3, q4):
     return return_matrix
 
 def generate_matrix(size):
-    population = [i for i in range(2000)]
+    population = [(i % 20) for i in range(2000)]
     x = []
     for i in range(size):
         x.append(random.sample(population, size))
@@ -125,23 +127,23 @@ def test(algos, input_results):
             summ = 0
             mult = 1
             results = []
-            for k in range(5):
+            for k in tqdm(range(3)):
                 start1 = time.time()
                 j(*i)
                 end1 = time.time()
                 summ += (end1 - start1)
                 mult *= (end1 - start1)
                 results.append(end1 - start1)
-            arithmetic = (summ / 5)
-            geometric = (summ * (1 / 5))
+            arithmetic = (summ / 3)
+            geometric = (summ * (1 / 3))
             standard_deviation = 0
-            for k in range(5):
+            for k in range(3):
                 standard_deviation += (results[k] - arithmetic) ** 2
-            standard_deviation = math.sqrt(standard_deviation / 5)
+            standard_deviation = math.sqrt(standard_deviation / 3)
             string = f"a:{round(arithmetic, 3)} s, g:{round(geometric, 3)} s, d:{round(standard_deviation, 3)} s"
             res.append(string)
         return_results.append(res)
-        benchmarks.append(f"Case {i1}")
+        benchmarks.append(f"Case {i1}, size: {i[0].size}")
         i1 += 1
     return format_table(benchmarks, [i.__name__ for i in algos], return_results)
 
@@ -159,7 +161,7 @@ def first_mult(matrix1, matrix2):
         return return_matrix
 
 def second_mult(matrix1: Matrix, matrix2: Matrix) -> Matrix:
-    if matrix1.size1 == 1 or matrix1.size2 == 1 or matrix2.size1 == 1 or matrix2.size2 == 1:
+    if max(matrix1.size1, matrix1.size2, matrix2.size1, matrix2.size2) <= 16:
         return first_mult(matrix1, matrix2)
     A = matrix1.create_submatrix(matrix1.size1 // 2, matrix1.size2 // 2, 0, 0)
     B = matrix1.create_submatrix(matrix1.size1 // 2, matrix1.size2 - (matrix1.size2 // 2), 0, matrix1.size2 // 2)
@@ -177,7 +179,7 @@ def second_mult(matrix1: Matrix, matrix2: Matrix) -> Matrix:
     return ret 
 
 def third_mult(matrix1: Matrix, matrix2: Matrix) -> Matrix:
-    if matrix1.size1 == 1 or matrix1.size2 == 1 or matrix2.size1 == 1 or matrix2.size2 == 1:
+    if max(matrix1.size1, matrix1.size2, matrix2.size1, matrix2.size2) <= 16:
         return first_mult(matrix1, matrix2)
     A = matrix1.create_submatrix(matrix1.size1 // 2, matrix1.size2 // 2, 0, 0)
     B = matrix1.create_submatrix(matrix1.size1 // 2, matrix1.size2 - (matrix1.size2 // 2), 0, matrix1.size2 // 2)
@@ -203,15 +205,43 @@ def third_mult(matrix1: Matrix, matrix2: Matrix) -> Matrix:
 
 def list_of_test(quantity_of_cases):
     return_array = []
-    for i in range(quantity_of_cases):
+    for i in range(8 ,quantity_of_cases):
         return_array.append((generate_matrix(2 ** i), generate_matrix(2 ** i)))
     return return_array
+
+def deg_two(matrix: Matrix) -> Matrix:
+    if math.modf(math.log2(matrix.size1))[0] == 0:
+        return matrix
+    size = 2 ** int(math.ceil(math.log2(matrix.size1)))
+    a = [0 for i in range(matrix.size)]
+    for i in range(size - matrix.size):
+        matrix.value.append(a)
+    for j in range(size):
+        for i in range(size - matrix.size):
+            matrix.value[j].append(0)
+    matrix.size1 = size
+    matrix.size2 = size
+    matrix.size = size
+    return matrix
+
+def strassen(matrix1, matrix2):
+    starting_size = matrix1.size
+    matrix1 = deg_two(matrix1)
+    matrix2 = deg_two(matrix2)
+    output = third_mult(matrix1, matrix2)
+    for i in range(len(output.value)):
+        output.value[i] = output.value[i][:starting_size]
+    output.value = output.value[:starting_size]
+    output.size = output.size1 = output.size2 = starting_size
+    return output
+
     
 
-algos = [first_mult, second_mult, third_mult]
-a = list_of_test(10)
+algos = [first_mult, strassen]
+a = list_of_test(11)
 print(datetime.now())
 test(algos, a)
 print(datetime.now())
-
-
+# A = generate_matrix(3)
+# B = generate_matrix(3)
+# print(strassen(A, B))
