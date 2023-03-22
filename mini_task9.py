@@ -117,7 +117,7 @@ def generate_matrix(size):
     return_matrix = Matrix(size, size, x)
     return return_matrix
 
-def test(algos, input_results):
+def test(algos, input_results, K):
     return_results = []
     benchmarks = []
     i1 = 0
@@ -127,19 +127,19 @@ def test(algos, input_results):
             summ = 0
             mult = 1
             results = []
-            for k in tqdm(range(3)):
+            for k in tqdm(range(K)):
                 start1 = time.time()
                 j(*i)
                 end1 = time.time()
                 summ += (end1 - start1)
                 mult *= (end1 - start1)
                 results.append(end1 - start1)
-            arithmetic = (summ / 3)
-            geometric = (summ * (1 / 3))
+            arithmetic = (summ / K)
+            geometric = (summ * (1 / K))
             standard_deviation = 0
             for k in range(3):
                 standard_deviation += (results[k] - arithmetic) ** 2
-            standard_deviation = math.sqrt(standard_deviation / 3)
+            standard_deviation = math.sqrt(standard_deviation / K)
             string = f"a:{round(arithmetic, 3)} s, g:{round(geometric, 3)} s, d:{round(standard_deviation, 3)} s"
             res.append(string)
         return_results.append(res)
@@ -238,9 +238,9 @@ def strassen(matrix1, matrix2):
     
 
 algos = [first_mult, strassen]
-a = list_of_test(11)
+a = list_of_test(9) # здесь указываем до какого размера матриц мы будем считать
 print(datetime.now())
-test(algos, a)
+test(algos, a, 3) 
 print(datetime.now())
 # A = generate_matrix(3)
 # B = generate_matrix(3)
