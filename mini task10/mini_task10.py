@@ -16,16 +16,17 @@ def func(string, k):
     return ord(string[k])
 
 def LSD(array):
+    if len(array) == 0:
+        return array
     k = -1
-    while k >= -len(array):
-        counting_sort(array, func, k)
+    while k >= -len(array[0]):
+        array = counting_sort(array, func, k)
         k -= 1
     return array
         
-a = ["abf", "dec"]
-b = a.copy()
-b.sort()
-print(b)
-print(LSD(a))
-
+# a = ["abf", "dec", "ser", "aaa"]
+# b = a.copy()
+# b.sort()
+# print(b)
+# print(LSD(a))
 
