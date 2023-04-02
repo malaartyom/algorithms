@@ -1,6 +1,6 @@
 import random
 def partition(array:list, start:int, end:int):
-    pivot = array[random.randint(start, end)]
+    pivot = array[int((start + end) / 2)]
     i = start
     j = end
     while True:
@@ -14,22 +14,23 @@ def partition(array:list, start:int, end:int):
         i += 1
         j -= 1
 
-def kth(array: list, k: int):
-    if len(array) == 0:
-        return array[0]
-    p = partition(array, 0, len(array) - 1)
+def kth(array: list, k: int, start, end):
+    if start == end:
+        return array[start]
+    p = partition(array, start, end)
     
     if p+1 == k:
         return array[p]
     elif p + 1 > k:
-        return kth(array[:p], k)
+        return kth(array, k, start, p)
     else:
-        return kth(array[p + 1:], k - p - 1)
+        return kth(array, k - p - 1, p + 1, end)
 
 def stupid_kth(array, k):
     return sorted(array)[k]
 
-nums = [2, 432, 3, 4, 21, 42, 0, 3]
-print(kth(nums, 5))
-print(stupid_kth(nums, 5))
+nums = list(set([2, 432, 3, 4, 21, 42, 0, 3]))
+print(sorted(nums))
+print(kth(nums, 1, 0, len(nums) - 1))
+print(stupid_kth(nums, 1))
 

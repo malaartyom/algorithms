@@ -2,7 +2,7 @@ import mini_task14
 import random
 
 def stupid_kth(array, k):
-    return sorted(array)[k]
+    return sorted(list(set(array)))[k-1]
 
 a = [[2, 432, 3, 4, 21, 42, 0, 3],
      [0, 0 ,0, 3, 2],
