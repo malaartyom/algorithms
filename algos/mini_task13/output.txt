@@ -1,0 +1,15 @@
+
+Hoare: 0.49359130859375; 
+Lomuto standart: 0.2289724349975586; 
+Lomuto branchfree 0.3165014982223511; 
+
+
+Hoare: 0.5172325372695923; 
+Lomuto standart: 0.2443079948425293; 
+Lomuto branchfree 0.3546559810638428; 
+
+
+Hoare: 0.47333099842071535; 
+Lomuto standart: 0.22667548656463624; 
+Lomuto branchfree 0.31451687812805174; 
+
