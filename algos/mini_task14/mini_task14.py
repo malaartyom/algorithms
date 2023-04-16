@@ -27,7 +27,7 @@ def kth(array: list, k: int, start, end):
         return kth(array, k - p - 1, p + 1, end)
 
 def stupid_kth(array, k):
-    return sorted(array)[k]
+    return sorted(array)[k - 1]
 
 nums = list(set([2, 432, 3, 4, 21, 42, 0, 3]))
 print(sorted(nums))

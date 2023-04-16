@@ -1,11 +1,17 @@
 {
     "python.testing.pytestArgs": [
-        "mini task10",
-        "mini_task14"
+        "data_structures"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "files.associations": {
         "stdlib.h": "c"
-    }
+    },
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*test.py"
+    ]
 }

@@ -1,8 +1,4 @@
-import mini_task14
-import random
-
-def stupid_kth(array, k):
-    return sorted(list(set(array)))[k-1]
+from mini_task14 import *
 
 a = [[2, 432, 3, 4, 21, 42, 0, 3],
      [0, 0 ,0, 3, 2],
@@ -11,7 +7,7 @@ a = [[2, 432, 3, 4, 21, 42, 0, 3],
 def make(n):
     k = 3
     b = stupid_kth(a[n], k)
-    c = mini_task14.kth(a[n], k)
+    c = kth(a[n], k, 0, len(a[n]) - 1)
     assert b == c
 
 def test1():

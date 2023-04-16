@@ -63,15 +63,6 @@ def sort_range(array, frm, to, dist):
     sort(array, m, to)
     merge(array, frm, m, m, to, dist)
 
-def is_sorted(array, frm, to):
-    if frm == to - 1:
-        return True
-    
-    for i in range(frm + 1, to):
-        if array[i] < array[i - 1]:
-            return False
-        
-    return True
 
 a = [3, 5, 9, 13, 1, 0, 1, 32]
 sort(a, 0, len(a))
