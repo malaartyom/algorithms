@@ -3,35 +3,35 @@
 #include <assert.h>
 #include <cstdlib>
 #include <ctime>
-#define SIZE 100000000
+#define SIZE 10000000
 static const size_t SORT_THRESHOLD = 16;
 
  
-void shuffle(int* arr, int N)
+void shuffle(long* arr, long N)
 {
     srand(time(NULL));
 
-    for (int i = N - 1; i >= 1; i--)
+    for (long i = N - 1; i >= 1; i--)
     {
-        int j = rand() % (i + 1);
+        long j = rand() % (i + 1);
  
-        int tmp = arr[j];
+        long tmp = arr[j];
         arr[j] = arr[i];
         arr[i] = tmp;
     }
 }
 
-void swap(int *i, int *j)
+void swap(long *i, long *j)
 {
-    int tmp = *i;
+    long tmp = *i;
     *i = *j;
     *j = tmp;
 }
 
-int* lomuto_partition_branchfree(int* first, int* last) {
+long* lomuto_partition_branchfree(long* first, long* last) {
     assert(first <= last);
     if (last - first < 2)
-        return first; // nothing interesting to do
+        return first; // nothing longeresting to do
     --last;
     if (*first > *last)
         swap(first, last);
@@ -43,7 +43,7 @@ int* lomuto_partition_branchfree(int* first, int* last) {
     } while (*first < pivot);
     for (auto read = first + 1; read < last; ++read) {
         auto x = *read;
-        auto smaller = -int(x < pivot);
+        auto smaller = -long(x < pivot);
         auto delta = smaller & (read - first);
         first[delta] = *first;
         read[-delta] = x;
@@ -102,21 +102,21 @@ void sort(It first, It last) {
 }
 
 int main() {
-    int* arr = (int*)malloc(SIZE * sizeof(int));
-    for (int i = 0; i < SIZE; i++){
+    long* arr = (long*)malloc(SIZE * sizeof(long));
+    for (long i = 0; i < SIZE; i++){
         arr[i] = i;
     }
 
     shuffle(arr, SIZE);
 
-    // for (int i = 0; i < SIZE - 1; i++) {
-    //     printf("%d ", arr[i]);
+    // for (long i = 0; i < SIZE - 1; i++) {
+    //     prlongf("%d ", arr[i]);
     // }
 
     sort(&arr[0], &arr[SIZE - 1]);
 
-    // for (int i = 0; i < SIZE - 1; i++) {
-    //      printf("%d ", arr[i]);
+    // for (long i = 0; i < SIZE - 1; i++) {
+    //      prlongf("%d ", arr[i]);
     // }
     return 0;
 }

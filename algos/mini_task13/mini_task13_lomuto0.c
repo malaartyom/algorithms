@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define SIZE 100000000
+#define SIZE 10000000
 
 void swap(int* arr, int i, int j) {
     int tmp = arr[i];

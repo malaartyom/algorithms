@@ -10,9 +10,8 @@ for i in possible_signs:
     associativity.append(i[2])
 
 def is_sign(char):
-    if char in signs:
-        return True
-    return False
+    return char in signs
+
 
 def parse(expression):
     expression = list(expression)

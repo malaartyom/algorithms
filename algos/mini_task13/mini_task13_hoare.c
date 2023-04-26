@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define SIZE 100000000
+#define SIZE 10000000
 int partition(int* arr, int start, int end) {
     int r = rand() % 12;
     int pivot = arr[r];

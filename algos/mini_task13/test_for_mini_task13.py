@@ -4,25 +4,25 @@ import os
 from tqdm import tqdm
 from datetime import datetime
 
-S = 1
+S = 15
 Hoare = 0
 Lomuto_st = 0
 Lomuto_bf = 0
 os.chdir("/Users/artemmalarenko/Documents/GitHub/algorithms/algos/mini_task13")
 for i in tqdm(range(S)):
-    sb.run(["gcc", "mini_task13_hoare.c"], capture_output=True)
+    sb.run(["clang", "mini_task13_hoare.c"], capture_output=True)
     start = tm.time()
     sb.run(["./a.out"], capture_output=True)
     end = tm.time()
     Hoare += end - start
     # print(f"Hoare: {end - start}")
-    sb.run(["gcc", "mini_task13_lomuto0.c"], capture_output=True)
+    sb.run(["clang", "mini_task13_lomuto0.c"], capture_output=True)
     start = tm.time()
     sb.run(["./a.out"], capture_output=True)
     end = tm.time()
     Lomuto_st += end - start
     # print(f"Standart Lomuto: {end - start}")
-    sb.run(["g++", "mini_task13_lomuto.cpp"], capture_output=True)
+    sb.run(["g++", "mini_task13_lomuto.cpp", "-Ofast"], capture_output=True)
     start = tm.time()
     sb.run(["./a.out"], capture_output=True)
     end = tm.time()

@@ -237,7 +237,7 @@ def strassen(matrix1, matrix2):
 
     
 
-algos = [first_mult]
+algos = [first_mult, strassen]
 a = list_of_test(11) # здесь указываем до какого размера матриц мы будем считать
 print(datetime.now())
 test(algos, a, 3) 
