@@ -1,10 +1,13 @@
-a = 20
-def div10(a):
-    if a < 10:
-        return 0
-    if a == 10:
-        return 1
-    return 1 + div10(a - 10)
+frequency = {1:3, 2:0, 3:7, 4:2}
+maxx = max(frequency, key=lambda x: frequency[x])
+print(maxx)
+# a = 20
+# def div10(a):
+#     if a < 10:
+#         return 0
+#     if a == 10:
+#         return 1
+#     return 1 + div10(a - 10)
 
 # # print(div10(a))
 # # from tqdm import tqdm
