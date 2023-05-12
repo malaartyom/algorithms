@@ -5,43 +5,24 @@ class TreeNode():
         self.left = None
         self.right = None
 
-def height(node):
-    if not node:
-        return 0
-    left_h = height(node.left)
-    right_h = height(node.right)
-    return max(left_h, right_h) + 1
-
-def max_in_BST(root):
-    if not root:
-        return -1
-    return max(root.val, max_in_BST(root.right), max_in_BST(root.left))
-
-def min_in_BST(root):
-    if not root:
-        return math.inf
-    return min(root.val, min_in_BST(root.right), min_in_BST(root.left))
-
-
-def is_valid(root):
-    h = height(root)
+def is_valid(root, low, high):
     if not root:
         return True
-    if max_in_BST(root.left) <= root.val and min_in_BST(root.right) >= root.val:
-        return is_valid(root.right) and is_valid(root.left)
+    if (not root.left or (root.left.val < root.val)) and (not root.right or (root.right.val >= root.val)) and root.val > low  and root.val < high:
+        return is_valid(root.right, root.val, high) and is_valid(root.left, low, root.val)
     else:
         return False
 
     
-a = TreeNode(1)
-b = TreeNode(2)
-c = TreeNode(3)
-d = TreeNode(4)
-e = TreeNode(5)
+a = TreeNode(5)
+b = TreeNode(4)
+c = TreeNode(6)
+d = TreeNode(3)
+e = TreeNode(7)
 a.left = b
 a.right = c
 c.left = d
 c.right = e
 
-#https://leetcode.com/problems/validate-binary-search-tree/submissions/936860945/
-print(is_valid(a))
+#https://leetcode.com/problems/validate-binary-search-tree/submissions/948371852/
+print(is_valid(a, -math.inf, math.inf))

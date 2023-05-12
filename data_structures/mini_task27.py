@@ -12,7 +12,7 @@ def find(s):
         if ret[i] > 1:
             a.append(i)
     return a
-
+#https://leetcode.com/problems/repeated-dna-sequences/submissions/947277766/
 
 
 print(find("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"))
