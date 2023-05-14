@@ -4,14 +4,22 @@ class TreeNode():
         self.val = x
         self.left = None
         self.right = None
-def pop_left(a: list) -> list:
-    del a[0]
+
 def side_view(root):
     result = []
     if not root:
         return result
-    Q = [root.val]
+    Q = [root]
     while Q:
+        result.append(Q[0].val)
+        for i in range(len(Q)):
+            node = Q[0]
+            del Q[0]
+            if node.right:
+                Q.append(node.right)
+            if node.left:
+                Q.append(node.left)
+    return result
 
     
 
