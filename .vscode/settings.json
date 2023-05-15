@@ -1,6 +1,6 @@
 {
     "python.testing.pytestArgs": [
-        "data_structures"
+        "test_main28.py"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
