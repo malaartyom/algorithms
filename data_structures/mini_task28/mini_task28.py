@@ -24,21 +24,23 @@ def hash_k(add, base):
 
 def hash_funcs(N, k):
     arr = []
-    bases = []
     funcs = []
     for i in range(k):
         arr.append(random.randrange(1, 72734))
-    primes = find_prime_in_range(N, N * 2, 3)
-    for i in range(3):
-        bases.append(primes[i])
     for i in range(k):
-        rand = random.randint(0, 2)
-        funcs.append(hash_k(arr[i], bases[rand]))
-
+        funcs.append(hash_k(arr[i], N))
     return funcs
         
         
-
+def IP_func(IP):
+    x = [int(i) for i in IP.split(".")]
+    for i in range(len(x)):
+        if x[i] == 0:
+            x[i] = 1
+    res = 1
+    for i in x:
+        res *= i
+    return res
 
 
 
@@ -57,13 +59,12 @@ class Bloom_Filter:
             print("Everything is OK :)")
     
     def insert(self, IP):
-        x = int("".join(IP.split(".")))
+        x = IP_func(IP)
         for i in range(self.k):
             self.array[self.hash_functions[i](x)] = 1
-        return "IP inserted"
 
     def lookup(self, IP):
-        x = int("".join(IP.split(".")))
+        x = IP_func(IP)
         for i in range(self.k):
             if self.array[self.hash_functions[i](x)] == 1:
                 return True
