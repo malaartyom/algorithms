@@ -20,7 +20,7 @@ def test3():
     assert [True, True, True] == [a.lookup("192.168.0.1"), a.lookup("192.168.0.2"), a.lookup("192.168.0.3")]
 
 def test4():
-    a = Bloom_Filter(1000, 0.01)
+    a = Bloom_Filter(1000, 0.99)
     a.insert("192.168.0.1")
     a.insert("192.168.0.2")
     a.insert("192.168.0.3")

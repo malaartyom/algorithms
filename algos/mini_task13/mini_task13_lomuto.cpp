@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <cstdlib>
 #include <ctime>
-#define SIZE 10000000
+#define SIZE 100000000
 static const size_t SORT_THRESHOLD = 16;
 
  
