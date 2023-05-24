@@ -8,7 +8,7 @@ S = 1
 Hoare = 0
 Lomuto_st = 0
 Lomuto_bf = 0
-os.chdir("/Users/artemmalarenko/Documents/GitHub/algorithms/algos/mini_task13")
+os.chdir(os.path.abspath("C:/Users/malar/Documents/GitHub/algorithms1/algos/mini_task13"))
 for i in tqdm(range(S)):
     sb.run(["g++", "mini_task13_hoare.cpp"], capture_output=True)
     start = tm.time()
