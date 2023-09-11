@@ -1,4 +1,6 @@
 def canJump(nums: list) -> bool:
+    if len(nums) <= 1:
+        return True
     pos = 0
     steps = nums[pos]
     while steps > 0:
