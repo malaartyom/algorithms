@@ -1,6 +1,10 @@
-a = [1, 2, 3 ,4]
-del a[0]
-print(a)
+a = [1, 2, 3 , 4]
+b = []
+for i in range(len(a)):
+    for j in range(i + 1, len(a)):
+        b.append((a[i], a[j]))
+print(b)
+
 # a = 20
 # def div10(a):
 #     if a < 10:
