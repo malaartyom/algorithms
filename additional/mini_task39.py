@@ -7,20 +7,17 @@ class Solution:
 
         for i in range(1, len(p)):
             if p[i] == "*":
-                table[0][i] = table[0][i - 2]
+                table[0][i] = table[0][i - 1]
 
-        for i in range(1, len(p)):
-            for j in range(1, len(s)):
-                if p[i] == "." or p[i] == s[j]:
-                    table[j][i] = table[j - 1][i - 1]
-                elif p[i] == "*":
-                    table[j][i] = table[j][i - 2] or int(table[j - 1][i] and (p[i - 1] == s[j] or p[i - 1] == "."))
+        for i in range(1, len(s)):
+            for j in range(1, len(p)):
+                if p[j] == "?" or p[j] == s[i]:
+                    table[i][j] = table[i - 1][j - 1]
+                elif p[j] == "*":
+                    table[i][j] = table[i][j - 1] or table[i - 1][j]
 
         return bool(table[-1][-1])
+    
 
-a = Solution()
-print(a.isMatch("ab", ".*"))
-
-#https://leetcode.com/problems/regular-expression-matching/submissions/1083167565/
-
+#https://leetcode.com/problems/wildcard-matching/submissions/1083174823/
 
