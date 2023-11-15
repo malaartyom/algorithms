@@ -1,35 +1,65 @@
-a = [1, 2, 3 , 4]
-b = []
-for i in range(len(a)):
-    for j in range(i + 1, len(a)):
-        b.append((a[i], a[j]))
-print(b)
+# import csv
+# import matplotlib.pyplot as plt
 
-# a = 20
-# def div10(a):
-#     if a < 10:
-#         return 0
-#     if a == 10:
-#         return 1
-#     return 1 + div10(a - 10)
-
-# # print(div10(a))
-# # from tqdm import tqdm
-# # summ = 0
-# # i = 0
-# # e = 0.000000000001
-# # x = 1
-# # while abs(x) > e:
-# #     x = ((-1) ** i) / ((2 * i + 1) ** 2)
-# #     summ += x
-# #     i += 1
-
-# # # print(summ)
-# # nodes = [1, 2, 3]
-# # nodes.pop()
-# # print(nodes)
-# j = 2
-# for i in range(0, 16, 2):
-#     print(f"        Or(a=out1[{i}], b=out1[{i+1}], out=out{j});")
-#     j += 1
+# with open("/Users/artemmalarenko/Documents/GitHub/algorithms/20231016-0003(2).csv") as file:
+#     reader = list(csv.reader(file, delimiter=";"))
+#     r = reader[:4]
+#     reader = reader[3:]
+#     reader = [[float(j.replace(",", ".")) for j in i] for i in reader]
+#     x = []
+#     y = []
+#     for i, j in reader:
+#         x.append(i)
+#         y.append(j)
+#     plt.plot(x, y)
+#     plt.show()
+#     # print(r)
     
+#     max_y = max(reader, key= lambda x: x[1])[1]
+#     list_of_extremums = []
+#     print(max_y)
+
+#     for row in reader:
+#         if row[1] == max_y:
+#             list_of_extremums.append(row)
+#     print(list_of_extremums[:5])
+#     print(list_of_extremums[1][0] - list_of_extremums[0][0])
+
+
+c = 10
+b = 3
+a = c
+c += b
+print(c)
+c = a
+c -= b
+print(c)
+c = a
+c *= b
+print(c)
+# дальше аналогично 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
