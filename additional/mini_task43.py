@@ -32,7 +32,7 @@ class SegmentTree:
             root.cnt += 1
             return
         
-        mid = root.start + (root.end - root.start) // 2     # [start, mid], [mid+1, end]
+        mid = root.start + (root.end - root.start) // 2     
         if num <= mid:
             self.update(root.left, num)
         elif num >= mid + 1:
