@@ -1,6 +1,7 @@
 from typing import *
 
 
+
 class SegmentTree:
     def __init__(self, arr):
         self.arr = [0 for i in range((len(arr)) * 4)]
