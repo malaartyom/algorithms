@@ -15,13 +15,10 @@ class ImplicitTreapNode:
 
 class ImplicitTreap:
 
-    def __init__(self, array=None, rand=True):
+    def __init__(self, array=None):
         self.random_priorities = random.sample(range(100), len(array))
         self.root = None
-        if array and rand:
-            self.root = self.random_pull(array)
-        elif array and not rand:
-            self.root = self.determined_pull(array)
+        self.root = self.random_pull(array)
 
     def update_size(self, treap: ImplicitTreapNode):
         if treap == None:
@@ -42,14 +39,6 @@ class ImplicitTreap:
         if treap == None:
             return 0
         return treap.sum
-
-    def determined_pull(self, array):
-        treap = None
-        for index, item in enumerate(array):
-            value, priority = item
-            node = ImplicitTreapNode(value, priority)
-            treap = self.insert(treap, node, index)
-        return treap
 
     def random_pull(self, array=None):
         treap = None
@@ -102,10 +91,9 @@ class ImplicitTreap:
 
 
     def sum(self, start: int, end: int) -> int:
-        if start > self.root.size or end > self.root.size:
-            raise IndexError("Index out of range! for Tasya")
         L, R = self.split_by_size(self.root, start)
         RL, RR = self.split_by_size(R, end - start + 1)
         result = self.get_sum(RL)
         self.root = self.merge(self.merge(L, RL), RR)
         return result
+    

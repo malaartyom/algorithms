@@ -37,11 +37,6 @@ def greedy_algo(data: list):
 
 
 def Union_find_algo(data: list):
-    """
-
-    :param data: List[name, deadline, fine]
-    :return: List[names], sum of fines
-    """
 
     data = sorted(data, key=lambda i: i[2], reverse=True)
     eq_classes = len(data)
@@ -72,3 +67,5 @@ def main():
     test_data = [['A', 3, 25], ['B', 4, 10], ['C', 1, 30], ['D', 3, 50], ['E', 3, 20]]
     print(greedy_algo(test_data))
     print(Union_find_algo(test_data))
+
+main()

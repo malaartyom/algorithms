@@ -1,74 +1,81 @@
-from typing import *
+from typing import List
+
+
+def search(a, x, lo=0):
+
+    if lo < 0:
+        raise ValueError('lo must be non-negative')
+    hi = len(a)
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if a[mid] < x:
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo
+
+
 
 class SegmentTree:
-    
-    def __init__(self, start, end, cnt):
-        self.start = start
-        self.end = end
-        self.cnt = cnt
-        self.left = None
-        self.right = None
-        
-    def build(self, start, end):
-        if start > end:
-            return None
-        
-        root = SegmentTree(start, end, 0)
-        if start == end:
-            return root
-        
-        mid = start + (end - start) // 2
-        root.left = self.build(start, mid)
-        root.right = self.build(mid + 1, end)
-        root.cnt = 0
-        
-        return root
-    
-    def update(self, root, num):
-        if root.start > num or root.end < num:
-            return
-        
-        if root.start == root.end:
-            root.cnt += 1
-            return
-        
-        mid = root.start + (root.end - root.start) // 2     
-        if num <= mid:
-            self.update(root.left, num)
-        elif num >= mid + 1:
-            self.update(root.right, num)
-            
-        root.cnt = root.left.cnt + root.right.cnt
-        
-    def query(self, root, start, end):
-        if start > root.end or end < root.start:
-            return 0
-        
-        if start <= root.start and end >= root.end:
-            return root.cnt
-        
-        return self.query(root.left, start, end) + self.query(root.right, start, end)
 
-    
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+        self.amount = len(nums)
+        self.t = [[] for _ in range(4 * self.amount)]
+        self.build(1, 0, self.amount - 1)
+
+    def build(self, v: int, tl: int, tr: int):
+        if tl == tr:
+            self.t[v].append(self.nums[tl])
+            return
+        tm = (tl + tr) >> 1
+        self.build(v * 2, tl, tm)
+        self.build(v * 2 + 1, tm + 1, tr)
+        self.t[v] = self.merge(self.t[v * 2], self.t[v * 2 + 1])
+
+    def merge(self, left, right):
+        result = []
+        i = 0
+        j = 0
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                result.append(left[i])
+                i += 1
+            else:
+                result.append(right[j])
+                j += 1
+        while i < len(left):
+            result.append(left[i])
+            i += 1
+        while j < len(right):
+            result.append(right[j])
+            j += 1
+        return result
+
+    def count_smaller(self, value: int, v: int, tl: int, tr: int, l: int, r: int) -> int:
+
+        if l == tl and r == tr:
+            return search(self.t[v], value)
+        tm = (tl + tr) >> 1
+        res = 0
+
+        if l <= tm:
+            res += self.count_smaller(value, v * 2, tl, tm, l, min(r, tm))
+        if r >= tm + 1:
+            res += self.count_smaller(value, v * 2 + 1, tm + 1, tr, max(l, tm + 1), r)
+
+        return res
+
+
 class Solution:
     def countSmaller(self, nums: List[int]) -> List[int]:
-        if not nums or len(nums) == 0:
-            return []
-        if len(nums) == 1:
-            return [0]
-        
-        min_num, max_num = min(nums), max(nums)
-        
-        segment_tree = SegmentTree(min_num, max_num, 0)
-        root = segment_tree.build(min_num, max_num)
-        
-        res = [0] * len(nums)
-        for i in range(len(nums) - 1, -1, -1):
-            segment_tree.update(root, nums[i])
-            cnt_of_smaller = 0
-            if nums[i] > min_num:
-                cnt_of_smaller = segment_tree.query(root, min_num, nums[i] - 1)
-            res[i] = cnt_of_smaller
-            
-        return res
-		
+        tree = SegmentTree(nums)
+        result = []
+        for index in range(len(nums)):
+            result.append(tree.count_smaller(nums[index], 1, 0, tree.amount - 1, index, tree.amount - 1))
+        return result
+    
+sol = Solution()
+nums = [5,2,6,1]
+
+print(sol.countSmaller(nums))

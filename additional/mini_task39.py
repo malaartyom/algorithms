@@ -16,8 +16,11 @@ class Solution:
                 elif p[j] == "*":
                     table[i][j] = table[i][j - 1] or table[i - 1][j]
 
-        return bool(table[-1][-1])
-    
 
+        print(table)
+
+        return bool(table[-1][-1])
+sol = Solution()
+sol.isMatch()
 #https://leetcode.com/problems/wildcard-matching/submissions/1083174823/
 
