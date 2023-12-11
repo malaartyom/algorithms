@@ -35,7 +35,8 @@ class Fenwick_Tree:
 
 
 class Solution:
-    def createSortedArray(self, instructions: List[int]) -> int:
+    @staticmethod
+    def createSortedArray(instructions: List[int]) -> int:
         N = max(instructions)
         tree = Fenwick_Tree(N)
         result = 0
@@ -45,8 +46,7 @@ class Solution:
 
         return result % (10 ** 9 + 7)
 
-    
-a = Solution()
-print(a.createSortedArray([1,2,1,2,1,2,1,2,1,2,1,2]))
+
+print(Solution.createSortedArray([1,2,1,2,1,2,1,2,1,2,1,2]))
 
 # https://leetcode.com/problems/create-sorted-array-through-instructions/submissions/
